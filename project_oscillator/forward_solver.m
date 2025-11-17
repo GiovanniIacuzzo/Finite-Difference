@@ -1,6 +1,6 @@
 function [t, u] = forward_solver(p, params)
 % ===============================================================
-% FORWARD_SOLVER  (versione migliorata)
+% FORWARD_SOLVER
 %
 % Integra la EDO:
 %     u'' + alpha u' + beta u = g(t)
@@ -63,8 +63,7 @@ function [t, u] = forward_solver(p, params)
     u(2) = u0 + dt * v0 + 0.5 * dt^2 * udd0;
 
     % ===============================================================
-    % Precomputazione coefficienti per velocizzare PSO
-    % (molti forward solver verranno chiamati → micro ottimizzazioni utili)
+    % Precomputazione coefficienti per velocizzare CPSO
     % ===============================================================
     A = (1/dt^2) + (alpha/(2*dt));     % coeff moltiplicativo di u(n+1)
 
