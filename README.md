@@ -71,7 +71,7 @@ u(:,1) = 0; u(:,end) = 0;
 We solve the **2D Poisson equation** on a square domain \([0,1]^2\) with homogeneous Dirichlet boundary conditions:
 
 $$
-- (u_{xx} + u_{yy}) = f(x,y), \quad u|_{\partial \Omega} = 0
+(u_{xx} + u_{yy}) = f(x,y), \quad u|_{\partial \Omega} = 0
 $$
 
 where we choose a **manufactured solution**:
