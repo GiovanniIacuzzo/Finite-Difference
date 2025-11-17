@@ -1,3 +1,11 @@
 idea.txt
+report.aux
+report.fdb_latexmk
+report.fls
+report.log
+report.out
+report.toc
+report.synctex.gz
+.DS_Store
 results/
 img/

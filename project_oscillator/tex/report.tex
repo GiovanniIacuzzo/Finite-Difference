@@ -1,0 +1,119 @@
+\documentclass[12pt,a4paper]{article}
+
+% ===== Pacchetti principali =====
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{graphicx}
+\usepackage{mathtools, amssymb}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{cleveref}
+\usepackage{listings}
+
+% ===== Impostazioni listings per MATLAB =====
+\lstset{
+    language=Matlab,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny
+}
+
+% ===== Titolo e autore =====
+\title{Optimal Control via CPSO: From Theory to Implementation}
+\author{Giovanni Giuseppe Iacuzzo}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This report investigates the optimal control of a second-order dynamical system using Continuous Particle Swarm Optimization (CPSO). The study covers theoretical formulation, numerical integration techniques, implementation in MATLAB, and analysis of results.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ===== 1. Introduction =====
+\section{Introduction}
+The aim of this work is to recover a target control signal that drives a second-order system to a desired trajectory. The study combines theoretical background, numerical simulations, and population-based optimization methods.
+
+The report is structured as follows:
+\begin{itemize}
+    \item \textit{Theoretical background:} formulation of the control problem.
+    \item \textit{Forward problem:} numerical methods for ODE integration.
+    \item \textit{CPSO implementation:} parameterization and optimization procedure.
+    \item \textit{Results:} post-processing, visualization, and analysis.
+\end{itemize}
+
+% ===== 2. Theoretical Background =====
+\section{Theoretical Background}
+We consider a second-order system governed by the ODE:
+\begin{equation}
+\label{eq:system}
+    u''(t) + \alpha u'(t) + \beta u(t) = g(t), \quad u(0) = u_0, \quad u'(0) = v_0,
+\end{equation}
+where $u(t)$ is the state, $g(t)$ the control input, and $\alpha, \beta$ are system parameters.
+
+The optimal control $g(t)$ minimizes the cost functional:
+\begin{equation}
+\label{eq:cost}
+    J(g) = \int_0^T \big(u(t) - u_{\mathrm{target}}(t)\big)^2 \, dt + \lambda \sum_{i=1}^{M} p_i^2,
+\end{equation}
+where $u_{\mathrm{target}}(t)$ is the desired trajectory, $p_i$ the control parameters, and $\lambda$ a regularization weight.
+
+% ===== 3. Forward Problem =====
+The system is discretized using a second-order finite difference scheme:
+\begin{align}
+    u_{n+1} &= \frac{1}{A} \Big( g_n + c_1 u_n - c_2 u_{n-1} - c_3 u_{n-1} - \beta u_n \Big), \\
+    A &= \frac{1}{\Delta t^2} + \frac{\alpha}{2 \Delta t}, \quad
+    c_1 = \frac{2}{\Delta t^2}, \quad
+    c_2 = \frac{1}{\Delta t^2}, \quad
+    c_3 = \frac{\alpha}{2 \Delta t}.
+\end{align}
+
+Initial values:
+\begin{align}
+    u_0 &= u(0), \\
+    u_1 &= u_0 + \Delta t \, v_0 + \frac{\Delta t^2}{2} \big(g(0) - \alpha v_0 - \beta u_0 \big).
+\end{align}
+
+% ===== 4. Control Parameterization =====
+Control signals are parameterized using:
+\begin{itemize}
+    \item \textit{Piecewise constant segments.}
+    \item \textit{Cubic spline interpolation} of control parameters $p_i$.
+\end{itemize}
+Parameters are bounded: $p_{\min} \le p_i \le p_{\max}$.
+
+% ===== 5. Implementation =====
+\section{Implementation}
+Implemented in MATLAB with key functions:
+\begin{lstlisting}
+forward_solver.m       % numerical ODE integration
+build_control.m        % constructs g(t) from parameters
+objective_cpso.m       % evaluates cost function
+postprocess.m          % results analysis and visualization
+\end{lstlisting}
+
+Workflow:
+\begin{enumerate}
+    \item Load system parameters and target trajectory.
+    \item Initialize CPSO parameters and run optimization.
+    \item Compute system response using optimal control.
+    \item Generate plots and statistics.
+\end{enumerate}
+
+\end{document}
