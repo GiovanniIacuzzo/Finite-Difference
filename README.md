@@ -48,7 +48,7 @@ $$
 u_t = \alpha (u_{xx} + u_{yy})
 $$
 
-with **Dirichlet boundary conditions** on a unit square $([0,1]^2$) and an initial Gaussian temperature distribution.  
+with **Dirichlet boundary conditions** on a unit square $([0,1]^2)$ and an initial Gaussian temperature distribution.  
 
 **Highlights:**
 - Explicit finite difference scheme.
@@ -68,7 +68,7 @@ u(:,1) = 0; u(:,end) = 0;
 
 ### 1.2 Poisson Equation with Convergence Study
 
-We solve the **2D Poisson equation** on a square domain \([0,1]^2\) with homogeneous Dirichlet boundary conditions:
+We solve the **2D Poisson equation** on a square domain $([0,1]^2)$ with homogeneous Dirichlet boundary conditions:
 
 $$
 (u_{xx} + u_{yy}) = f(x,y), \quad u|_{\partial \Omega} = 0
@@ -88,7 +88,7 @@ $$
 
 #### Numerical Approach
 
-- **Spatial Discretization:** Uniform grid of \(N \times N\) internal points.
+- **Spatial Discretization:** Uniform grid of $(N \times N)$ internal points.
 - **Finite Difference Scheme:** Standard 5-point Laplacian stencil.
 - **Matrix Formulation:** Sparse matrices are used with Kronecker products to efficiently construct the 2D Laplacian:
 
@@ -113,7 +113,7 @@ $$
 N = [10, 20, 40, 80]
 $$
 
-where \(N\) represents the number of internal points along each spatial direction.
+where $(N)$ represents the number of internal points along each spatial direction.
 
 2. Compute the **grid spacing**:
 
@@ -121,7 +121,7 @@ $$
 h = \frac{1}{N+1}
 $$
 
-3. Evaluate the **discrete \(L^2\) error** between the numerical solution \(u_{\text{num}}\) and the exact solution \(u_{\text{exact}}\):
+3. Evaluate the **discrete $(L^2)$ error** between the numerical solution $(u_{\text{num}})$ and the exact solution $(u_{\text{exact}})$:
 
 $$
 \text{err}_{L^2} = \sqrt{ h^2 \sum_{i,j} \left( u_{i,j}^{\text{num}} - u_{i,j}^{\text{exact}} \right)^2 }
@@ -165,13 +165,13 @@ $$
 
 #### Numerical Discretization
 
-We discretize the spatial domain using a uniform grid with \(Nx\) points:
+We discretize the spatial domain using a uniform grid with $(Nx)$ points:
 
 $$
 x_i = i \, \Delta x, \quad i = 0, 1, \dots, Nx-1
 $$
 
-where \(\Delta x = L_x / (Nx-1)\).  
+where $(\Delta x = L_x / (Nx-1))$.  
 
 Time is discretized with a **central difference scheme** in time and space (explicit second-order accurate):
 
@@ -242,20 +242,20 @@ $$
 
 where:
 
-- \(u(t)\) is the state of the system (oscillator amplitude),
-- \(g(t)\) is the control input to be optimized,
-- \(\alpha, \beta\) are system parameters defining the oscillator dynamics.
+- $(u(t))$ is the state of the system (oscillator amplitude),
+- $(g(t))$ is the control input to be optimized,
+- $(\alpha, \beta)$ are system parameters defining the oscillator dynamics.
 
-The **target trajectory** \(u_{\text{target}}(t)\) is synthetically generated using a known control \(p_{\text{true}}\), which allows evaluating the quality of the optimized control.
+The **target trajectory** $(u_{\text{target}}(t))$ is synthetically generated using a known control $(p_{\text{true}})$, which allows evaluating the quality of the optimized control.
 
 ---
 
 #### 2.2 Control Parametrization
 
-The control signal \(g(t)\) is **parametrized as a vector** \(p \in \mathbb{R}^{M}\), where \(M\) is the number of control parameters:
+The control signal $(g(t))$ is **parametrized as a vector** $(p \in \mathbb{R}^{M})$, where $(M)$ is the number of control parameters:
 
-- **Piecewise constant**: \(g(t)\) takes constant values over \(M\) intervals.
-- **Spline interpolation**: \(g(t)\) is reconstructed as a smooth function passing through the \(M\) control points.
+- **Piecewise constant**: $(g(t))$ takes constant values over $(M)$ intervals.
+- **Spline interpolation**: $(g(t))$ is reconstructed as a smooth function passing through the $(M)$ control points.
 
 The choice of parametrization allows **reducing the dimensionality** of the optimization problem while maintaining flexibility in the control signal.
 
@@ -263,19 +263,19 @@ The choice of parametrization allows **reducing the dimensionality** of the opti
 
 #### 2.3 Objective Function
 
-The CPSO aims to find \(p\) that **minimizes the difference** between the simulated trajectory \(u(t;p)\) and the target trajectory \(u_{\text{target}}(t)\). The cost function is defined as:
+The CPSO aims to find $(p)$ that **minimizes the difference** between the simulated trajectory $(u(t;p))$ and the target trajectory $(u_{\text{target}}(t))$. The cost function is defined as:
 
 $$
 J(p) = \frac{1}{N_t} \sum_{i=1}^{N_t} \big(u_i(p) - u_{\text{target},i}\big)^2
 $$
 
-where \(N_t\) is the number of discrete time points.
+where $(N_t)$ is the number of discrete time points.
 
 ---
 
 #### 2.4 Forward Solver
 
-Given a candidate control vector \(p\), the **forward solver** integrates the oscillator ODE:
+Given a candidate control vector $(p)$, the **forward solver** integrates the oscillator ODE:
 
 ```bash
 [t, u] = forward_solver(p, params);
