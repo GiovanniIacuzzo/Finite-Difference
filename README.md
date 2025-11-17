@@ -48,7 +48,7 @@ $$
 u_t = \alpha (u_{xx} + u_{yy})
 $$
 
-with **Dirichlet boundary conditions** on a unit square \([0,1]^2\) and an initial Gaussian temperature distribution.  
+with **Dirichlet boundary conditions** on a unit square $([0,1]^2$) and an initial Gaussian temperature distribution.  
 
 **Highlights:**
 - Explicit finite difference scheme.
