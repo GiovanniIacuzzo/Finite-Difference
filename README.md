@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository is dedicated to exploring numerical methods for partial differential equations (PDEs) using **finite difference schemes**, combined with **optimization techniques** such as **Chaotic Particle Swarm Optimization (CPSO)**. The project is both a study of classical numerical analysis methods and a demonstration of advanced control optimization techniques in MATLAB.  
+This repository is dedicated to exploring numerical methods for partial differential equations (PDEs) using **finite difference schemes**, combined with **optimization techniques** such as **Continuous Particle Swarm Optimization (CPSO)**. The project is both a study of classical numerical analysis methods and a demonstration of advanced control optimization techniques in MATLAB.  
 
 The main goals of the repository are:
 
